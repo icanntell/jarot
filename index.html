@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jarot Sang Ketua</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: white;
+      color: black;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: white;
+      }
+    }
+
+    .header {
+      margin-top: 30px;
+    }
+
+    .photos {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      flex-grow: 1;
+    }
+
+    .photo img {
+      max-width: 90%;
+      height: auto;
+      background-color: black;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    footer {
+      margin: 40px 0;
+      font-size: 14px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Jarot Sang Ketua</h1>
+    <p>website ini di bangun dengan rasa gabut tingkat tinggi<br>dengan isi komuk keybi</p>
+  </div>
+
+  <div class="photos" id="photos">
+    <!-- Foto-foto akan dimuat otomatis di sini -->
+  </div>
+
+  <footer>
+    ©Atmin Magang *F
+  </footer>
+
+  <script>
+    const photoContainer = document.getElementById('photos');
+
+    // Daftar foto manual
+    const photos = [
+      'foto1.jpg',
+      'foto2.jpg',
+      'foto3.jpg',
+      'foto4.jpg',
+      'foto5.jpg',
+      // Tambahkan nama file fotomu di sini
+    ];
+
+    photos.forEach(photo => {
+      const photoDiv = document.createElement('div');
+      photoDiv.classList.add('photo');
+
+      const img = document.createElement('img');
+      img.src = `images/${photo}`;
+      img.alt = photo;
+
+      photoDiv.appendChild(img);
+      photoContainer.appendChild(photoDiv);
+    });
+  </script>
+
+</body>
+</html>
