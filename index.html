@@ -10,22 +10,44 @@
       padding: 0;
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: white;
-      color: black;
+      background-color: #000;
+      color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        color: white;
+    .love {
+      position: absolute;
+      color: #ff0000;
+      font-size: 20px;
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) rotate(360deg);
+        opacity: 0;
       }
     }
 
     .header {
       margin-top: 30px;
+      position: relative;
+      z-index: 2;
     }
 
     .photos {
@@ -35,20 +57,38 @@
       align-items: center;
       gap: 40px;
       flex-grow: 1;
+      padding-bottom: 40px;
+      position: relative;
+      z-index: 2;
     }
 
     .photo img {
       max-width: 90%;
+      max-height: 80vh;
       height: auto;
-      background-color: black;
+      background-color: #222;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+      object-fit: contain;
+      border: 1px solid #ff0000;
     }
 
     footer {
-      margin: 40px 0;
+      margin: 20px 0;
+      padding: 10px;
       font-size: 14px;
-      color: gray;
+      color: #ff0000;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff0000;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    p {
+      color: #ccc;
     }
   </style>
 </head>
@@ -56,7 +96,7 @@
 
   <div class="header">
     <h1>Jarot Sang Ketua</h1>
-    <p>website ini di bangun dengan rasa gabut tingkat tinggi<br>dengan isi komuk keybi</p>
+    <p>Website ini dibangun dengan rasa gabut tingkat tinggi<br>dengan isi komuk keybi</p>
   </div>
 
   <div class="photos" id="photos">
@@ -68,9 +108,26 @@
   </footer>
 
   <script>
-    const photoContainer = document.getElementById('photos');
+    // Create floating hearts
+    function createHearts() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '♥';
+      heart.classList.add('love');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+      heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+      document.body.appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
 
-    // Daftar foto manual
+    // Generate hearts every 300ms
+    setInterval(createHearts, 300);
+
+    // Load photos
+    const photoContainer = document.getElementById('photos');
     const photos = [
       'foto1.jpg',
       'foto2.jpg',
@@ -86,7 +143,6 @@
       'foto12.jpg',
       'foto13.jpg',
       'foto14.jpg',
-      // Tambahkan nama file fotomu di sini
     ];
 
     photos.forEach(photo => {
@@ -95,7 +151,8 @@
 
       const img = document.createElement('img');
       img.src = `images/${photo}`;
-      img.alt = photo;
+      img.alt = `Foto ${photo.replace('.jpg', '')}`;
+      img.loading = "lazy";
 
       photoDiv.appendChild(img);
       photoContainer.appendChild(photoDiv);
